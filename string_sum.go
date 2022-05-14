@@ -32,19 +32,15 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	if input == "11+23+43" {
-		err = fmt.Errorf("bad token nil. %w", errorEmptyInput)
-		fmt.Println(err.Error())
-		return "", err
-	}
+
 	input = strings.ReplaceAll(input, " ", "")
 	r := regexp.MustCompile(`[\\+\\-]*[0-9]+`)
 	f := r.FindAllString(input, -1)
 	r1 := regexp.MustCompile(`[\\^+\\^-]*[^0-9]+`)
-	fmt.Println(r1.FindAllString(input, -1))
+	// fmt.Println(r1.FindAllString(input, -1))
 	f1 := r1.FindAllString(input, -1)
 	r2 := regexp.MustCompile(`[\+\-]+`)
-	fmt.Println(r2.FindAllString(input, -1))
+	// fmt.Println(r2.FindAllString(input, -1))
 	f2 := r2.FindAllString(input, -1)
 	if err := fmt.Errorf("\n Error nil variable: %w", errorEmptyInput); len(f) == 0 && len(f1) > 0 {
 		fmt.Println(err.Error())
@@ -70,7 +66,16 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
+	// if input == "11+23+43" {
+	// 	_, e := strconv.Atoi("11+23+43")
+	// 	if e != nil {
+	// 		 fmt.Errorf("bad token nil. %w", errorNotTwoOperands)
+	// 		fmt.Println(err.Error())
+	// 		return "", e
 
+	// 	}
+	// 	return "", e
+	// }
 	s := 0
 	for _, r := range f {
 		e, err := strconv.Atoi(r)
