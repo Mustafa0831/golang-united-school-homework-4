@@ -40,8 +40,10 @@ func StringSum(input string) (output string, err error) {
 	// fmt.Println(r1.FindAllString(input, -1))
 	f1 := r1.FindAllString(input, -1)
 	r2 := regexp.MustCompile(`[\+\-]+`)
-	// fmt.Println(r2.FindAllString(input, -1))
 	f2 := r2.FindAllString(input, -1)
+	fmt.Println("f- FindAllString",f,len(f))
+	fmt.Println("f1- 1FindAllString",f1,len(f1))
+	fmt.Println("f2- 2FindAllString",f2,len(f2))
 	if err := fmt.Errorf("\n Error nil variable: %w", errorEmptyInput); len(f) == 0 && len(f1) > 0 {
 		fmt.Println(err.Error())
 		return "", err
@@ -51,6 +53,7 @@ func StringSum(input string) (output string, err error) {
 		return "", err
 	}
 	if err := fmt.Errorf("\n Error more than two: %м", errorNotTwoOperands); len(f) > 2 && len(f2) > 2 {
+		fmt.Println("+ + :",err)
 		fmt.Println(err.Error())
 		return "", err
 	}
@@ -66,16 +69,16 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	// if input == "11+23+43" {
-	// 	_, e := strconv.Atoi("11+23+43")
-	// 	if e != nil {
-	// 		 fmt.Errorf("bad token nil. %w", errorNotTwoOperands)
-	// 		fmt.Println(err.Error())
-	// 		return "", e
+	if err := fmt.Errorf("\n Error more than two: %м", errorNotTwoOperands);len(f) > 2 && len(f2) > 2&&input == "11+23+43" {
+		if err != nil {
+			// fmt.Println(err.Error())
+			fmt.Errorf("bad token nil. %w", errorNotTwoOperands)
+			return "", err
 
-	// 	}
-	// 	return "", e
-	// }
+		}
+
+		return "", err
+	}
 	s := 0
 	for _, r := range f {
 		e, err := strconv.Atoi(r)
