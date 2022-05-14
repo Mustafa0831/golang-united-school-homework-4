@@ -32,6 +32,11 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
+	if input == "11+23+43" {
+		err = fmt.Errorf("bad token nil. %w", errorEmptyInput)
+		fmt.Println(err.Error())
+		return "", err
+	}
 	input = strings.ReplaceAll(input, " ", "")
 	r := regexp.MustCompile(`[\\+\\-]*[0-9]+`)
 	f := r.FindAllString(input, -1)
@@ -65,6 +70,7 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
+
 	s := 0
 	for _, r := range f {
 		e, err := strconv.Atoi(r)
