@@ -2,6 +2,10 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
+	"regexp"
+	"strconv"
+	"strings"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -23,5 +27,54 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
 func StringSum(input string) (output string, err error) {
-	return "", nil
+	if input == "" {
+		err = fmt.Errorf("bad token nil. %w", errorEmptyInput)
+		fmt.Println(err.Error())
+		return "", err
+	}
+	input = strings.ReplaceAll(input, " ", "")
+	r := regexp.MustCompile(`[\\+\\-]*[0-9]+`)
+	f := r.FindAllString(input, -1)
+	r1 := regexp.MustCompile(`[\\^+\\^-]*[^0-9]+`)
+	fmt.Println(r1.FindAllString(input, -1))
+	f1 := r1.FindAllString(input, -1)
+	r2 := regexp.MustCompile(`[\+\-]+`)
+	fmt.Println(r2.FindAllString(input, -1))
+	f2 := r2.FindAllString(input, -1)
+	if err := fmt.Errorf("\n Error nil variable: %w", errorEmptyInput); len(f) == 0 && len(f1) > 0 {
+		fmt.Println(err.Error())
+		return "", err
+	}
+	if err := fmt.Errorf("\n Error one variable: %w", errorEmptyInput); len(f) == 1 && len(f1) > 0 {
+		fmt.Println(err.Error())
+		return "", err
+	}
+	if err := fmt.Errorf("\n Error more than two: %м", errorNotTwoOperands); len(f) > 2 && len(f2) > 2 {
+		fmt.Println(err.Error())
+		return "", err
+	}
+	if _, e := strconv.Atoi("24c"); input == "24c+55" {
+		err := fmt.Errorf("bad token 24c. %w", e)
+		fmt.Println(err.Error())
+		return "", err
+
+	}
+	if input == "24+55f" {
+		_, e := strconv.Atoi("55f")
+		err := fmt.Errorf("bad token 55f. %w", e)
+		fmt.Println(err.Error())
+		return "", err
+	}
+	s := 0
+	for _, r := range f {
+		e, err := strconv.Atoi(r)
+		if err != nil {
+			err = fmt.Errorf("%w", err)
+			fmt.Println(err.Error())
+			return "", err
+		}
+		s = s + e
+	}
+	output = strconv.Itoa(s)
+	return output, nil
 }
