@@ -26,7 +26,7 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
-func StringSum(input string) (output string, errs error) {
+func StringSum(input string) (output string, err error) {
 	if err := fmt.Errorf("Error empty input %w", errorEmptyInput); input == "" {
 		fmt.Println(err)
 		return "", err
@@ -45,7 +45,7 @@ func StringSum(input string) (output string, errs error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	if err := fmt.Errorf("\n Error one variable: %w", errorEmptyInput); len(f) == 1 || len(f1) > 0 {
+	if err := fmt.Errorf("\n Error one variable: %w", errorEmptyInput); len(f) == 1 && len(f1) == 1  {
 		fmt.Println(err.Error())
 		return "", err
 	}
@@ -80,5 +80,5 @@ func StringSum(input string) (output string, errs error) {
 		s = s + e
 	}
 	output = strconv.Itoa(s)
-	return output, errs
+	return output, nil
 }
