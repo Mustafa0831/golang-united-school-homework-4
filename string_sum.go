@@ -45,7 +45,7 @@ func StringSum(input string) (output string, errs error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	if err := fmt.Errorf("\n Error one variable: %w", errorEmptyInput); len(f) == 1 && len(f1) > 0 {
+	if err := fmt.Errorf("\n Error one variable: %w", errorEmptyInput); len(f) == 1 || len(f1) > 0 {
 		fmt.Println(err.Error())
 		return "", err
 	}
