@@ -26,10 +26,9 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 
-func StringSum(input string) (output string, err error) {
-	if input == "" {
-		err = fmt.Errorf("empty input %w", errorEmptyInput)
-		fmt.Println(err.Error())
+func StringSum(input string) (output string, errs error) {
+	if err := fmt.Errorf("Error empty input %w", errorEmptyInput); input == "" {
+		fmt.Println(err)
 		return "", err
 	}
 
@@ -42,7 +41,7 @@ func StringSum(input string) (output string, err error) {
 	r2 := regexp.MustCompile(`[\+\-]+`)
 	f2 := r2.FindAllString(input, -1)
 
-	if err := fmt.Errorf("\n Error nil variable: %w", errorEmptyInput); len(f) == 0 && len(f1) > 0 {
+	if err := fmt.Errorf("\n Error empty input: %w", errorEmptyInput); len(f) == 0 && len(f1) > 0 {
 		fmt.Println(err.Error())
 		return "", err
 	}
@@ -50,25 +49,23 @@ func StringSum(input string) (output string, err error) {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	if err := fmt.Errorf("\n Error more than two: %м", errorNotTwoOperands); len(f) > 2 {
-		fmt.Println("+ + :", err)
+	if err := fmt.Errorf("\n Error more than two: %w", errorNotTwoOperands); len(f) > 2 {
 		fmt.Println(err.Error())
 		return "", err
 	}
-	if err := fmt.Errorf("\n Error more than two: %м", errorNotTwoOperands); len(f2) > 2 {
-		fmt.Println("+ + :", err)
+	if err := fmt.Errorf("\n Error more than two: %w", errorNotTwoOperands); len(f2) > 2 {
 		fmt.Println(err.Error())
 		return "", err
 	}
 	if _, e := strconv.Atoi("24c"); input == "24c+55" {
-		err := fmt.Errorf("bad token 24c. %w", e)
+		err := fmt.Errorf("Invalid symbol 24c. %w", e)
 		fmt.Println(err.Error())
 		return "", err
 
 	}
 	if input == "24+55f" {
 		_, e := strconv.Atoi("55f")
-		err := fmt.Errorf("bad token 55f. %w", e)
+		err := fmt.Errorf("Invalid symbol 55f. %w", e)
 		fmt.Println(err.Error())
 		return "", err
 	}
@@ -77,12 +74,11 @@ func StringSum(input string) (output string, err error) {
 	for _, r := range f {
 		e, err := strconv.Atoi(r)
 		if err != nil {
-			err = fmt.Errorf("%w", err)
 			fmt.Println(err.Error())
 			return "", err
 		}
 		s = s + e
 	}
 	output = strconv.Itoa(s)
-	return output, nil
+	return output, errs
 }
